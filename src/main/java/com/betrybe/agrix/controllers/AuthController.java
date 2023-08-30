@@ -1,5 +1,6 @@
 package com.betrybe.agrix.controllers;
 
+import com.betrybe.agrix.controllers.dto.AuthResponseDto;
 import com.betrybe.agrix.controllers.dto.AuthenticationDto;
 import com.betrybe.agrix.models.entities.Person;
 import com.betrybe.agrix.security.TokenService;
@@ -38,14 +39,14 @@ public class AuthController {
  */
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestBody AuthenticationDto authenticationDto) {
-    UsernamePasswordAuthenticationToken getUser = new UsernamePasswordAuthenticationToken(
+    UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(
         authenticationDto.username(), authenticationDto.password());
-    Authentication auth = authenticationManager.authenticate(getUser);
+    Authentication auth = authenticationManager.authenticate(user);
     
     Person person = (Person) auth.getPrincipal();
     
     String token = tokenService.generateToken(person);
     
-    return ResponseEntity.status(HttpStatus.OK).body(token);
+    return ResponseEntity.status(HttpStatus.OK).body(new AuthResponseDto(token));
   }
 }
