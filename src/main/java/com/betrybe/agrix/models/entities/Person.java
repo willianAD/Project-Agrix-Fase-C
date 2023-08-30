@@ -1,6 +1,5 @@
 package com.betrybe.agrix.models.entities;
 
-
 import com.betrybe.agrix.security.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
